@@ -1,0 +1,179 @@
+
+KaraSimsek.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000146  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000000f2  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000146  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000178  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  000001b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000773  00000000  00000000  000001d8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000696  00000000  00000000  0000094b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000028e  00000000  00000000  00000fe1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000024  00000000  00000000  00001270  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000037f  00000000  00000000  00001294  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000b4  00000000  00000000  00001613  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  000016c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 40 00 	call	0x80	; 0x80 <main>
+  78:	0c 94 77 00 	jmp	0xee	; 0xee <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <main>:
+
+
+int main(void)
+{
+    // Önce Portlarýmýz giriþ mi çýkýþ mý onu belirleyelim!
+	DDRD = 0xFF; // D portunun tamamý çýkýþ olarak tanýmlandý!
+  80:	8f ef       	ldi	r24, 0xFF	; 255
+  82:	8a b9       	out	0x0a, r24	; 10
+    while (1)
+    {
+		// Önce ledleri sýrayla yakalým. Bunun için for Döngüsü kullanacaðýz!
+		for (int i = 0; i < 8; i++)
+		{
+			PORTD |= _BV(i); // i ile belirlenen ledi yak!
+  84:	61 e0       	ldi	r22, 0x01	; 1
+  86:	70 e0       	ldi	r23, 0x00	; 0
+
+	// Loop döngümüze girelim!...
+    while (1)
+    {
+		// Önce ledleri sýrayla yakalým. Bunun için for Döngüsü kullanacaðýz!
+		for (int i = 0; i < 8; i++)
+  88:	80 e0       	ldi	r24, 0x00	; 0
+  8a:	90 e0       	ldi	r25, 0x00	; 0
+		{
+			PORTD |= _BV(i); // i ile belirlenen ledi yak!
+  8c:	4b b1       	in	r20, 0x0b	; 11
+  8e:	9b 01       	movw	r18, r22
+  90:	08 2e       	mov	r0, r24
+  92:	02 c0       	rjmp	.+4      	; 0x98 <main+0x18>
+  94:	22 0f       	add	r18, r18
+  96:	33 1f       	adc	r19, r19
+  98:	0a 94       	dec	r0
+  9a:	e2 f7       	brpl	.-8      	; 0x94 <main+0x14>
+  9c:	24 2b       	or	r18, r20
+  9e:	2b b9       	out	0x0b, r18	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  a0:	2f ef       	ldi	r18, 0xFF	; 255
+  a2:	32 e5       	ldi	r19, 0x52	; 82
+  a4:	47 e0       	ldi	r20, 0x07	; 7
+  a6:	21 50       	subi	r18, 0x01	; 1
+  a8:	30 40       	sbci	r19, 0x00	; 0
+  aa:	40 40       	sbci	r20, 0x00	; 0
+  ac:	e1 f7       	brne	.-8      	; 0xa6 <main+0x26>
+  ae:	00 c0       	rjmp	.+0      	; 0xb0 <main+0x30>
+  b0:	00 00       	nop
+
+	// Loop döngümüze girelim!...
+    while (1)
+    {
+		// Önce ledleri sýrayla yakalým. Bunun için for Döngüsü kullanacaðýz!
+		for (int i = 0; i < 8; i++)
+  b2:	01 96       	adiw	r24, 0x01	; 1
+  b4:	88 30       	cpi	r24, 0x08	; 8
+  b6:	91 05       	cpc	r25, r1
+  b8:	49 f7       	brne	.-46     	; 0x8c <main+0xc>
+  ba:	87 e0       	ldi	r24, 0x07	; 7
+  bc:	90 e0       	ldi	r25, 0x00	; 0
+  be:	2f ef       	ldi	r18, 0xFF	; 255
+  c0:	32 e5       	ldi	r19, 0x52	; 82
+  c2:	47 e0       	ldi	r20, 0x07	; 7
+  c4:	21 50       	subi	r18, 0x01	; 1
+  c6:	30 40       	sbci	r19, 0x00	; 0
+  c8:	40 40       	sbci	r20, 0x00	; 0
+  ca:	e1 f7       	brne	.-8      	; 0xc4 <main+0x44>
+  cc:	00 c0       	rjmp	.+0      	; 0xce <main+0x4e>
+  ce:	00 00       	nop
+		// geri dönüþü de yapalým!...
+		for (int i = 7; i >= 0; i--)
+		{
+			//PORTD |= _BV(i);
+			_delay_ms(bekleme);
+			PORTD &= ~_BV(i);
+  d0:	3b b1       	in	r19, 0x0b	; 11
+  d2:	ab 01       	movw	r20, r22
+  d4:	08 2e       	mov	r0, r24
+  d6:	02 c0       	rjmp	.+4      	; 0xdc <main+0x5c>
+  d8:	44 0f       	add	r20, r20
+  da:	55 1f       	adc	r21, r21
+  dc:	0a 94       	dec	r0
+  de:	e2 f7       	brpl	.-8      	; 0xd8 <main+0x58>
+  e0:	24 2f       	mov	r18, r20
+  e2:	20 95       	com	r18
+  e4:	23 23       	and	r18, r19
+  e6:	2b b9       	out	0x0b, r18	; 11
+			_delay_ms(bekleme); // bekleme kadar bekle
+			//PORTD &= ~_BV(i); // i ile belirtilen ledi söndür!
+		}
+
+		// geri dönüþü de yapalým!...
+		for (int i = 7; i >= 0; i--)
+  e8:	01 97       	sbiw	r24, 0x01	; 1
+  ea:	48 f7       	brcc	.-46     	; 0xbe <main+0x3e>
+  ec:	cd cf       	rjmp	.-102    	; 0x88 <main+0x8>
+
+000000ee <_exit>:
+  ee:	f8 94       	cli
+
+000000f0 <__stop_program>:
+  f0:	ff cf       	rjmp	.-2      	; 0xf0 <__stop_program>
